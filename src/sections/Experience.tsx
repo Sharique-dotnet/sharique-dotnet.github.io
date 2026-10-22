@@ -1,12 +1,12 @@
+import { useState } from 'react'
 import { SectionLabel } from '../components'
 import { GROUPS, STACK, TIMELINE } from '../data'
 
-// Static default state; the filter and accordion become interactive in Phase 4
-const tag: string | null = null
-const open: Record<number, boolean> = { 0: true }
-
 export default function Experience() {
+  const [tag, setTag] = useState<string | null>(null)
+  const [open, setOpen] = useState<Record<number, boolean>>({ 0: true })
   const allOpen = GROUPS.every((_, i) => open[i])
+  const toggleAll = () => setOpen(allOpen ? {} : Object.fromEntries(GROUPS.map((_, i) => [i, true])))
 
   return (
     <section id="experience" data-nav className="section">
@@ -35,17 +35,24 @@ export default function Experience() {
             <div data-reveal="up" className="card filter-box">
               <div className="filter-head mono">
                 <span>filter impact by technology</span>
-                {tag && <button className="link-btn mono">clear filter ×</button>}
+                {tag && <button className="link-btn mono" onClick={() => setTag(null)}>clear filter ×</button>}
               </div>
               <div className="tags">
                 {STACK.map(name => (
-                  <button key={name} className={'tag mono' + (tag === name ? ' active' : '')} aria-pressed={tag === name}>{name}</button>
+                  <button
+                    key={name}
+                    className={'tag mono' + (tag === name ? ' active' : '')}
+                    aria-pressed={tag === name}
+                    onClick={() => setTag(tag === name ? null : name)}
+                  >
+                    {name}
+                  </button>
                 ))}
               </div>
             </div>
 
             <div className="toggle-row">
-              <button className="link-btn toggle-all mono">{allOpen ? '− collapse all' : '+ expand all'}</button>
+              <button className="link-btn toggle-all mono" onClick={toggleAll}>{allOpen ? '− collapse all' : '+ expand all'}</button>
             </div>
 
             <div className="groups">
@@ -54,7 +61,7 @@ export default function Experience() {
                 const isOpen = !!open[i] || match
                 return (
                   <div key={g.title} data-reveal="up" style={{ '--d': i * 60 }} className={'group' + (match ? ' match' : '') + (tag && !match ? ' dim' : '')}>
-                    <button className="group-btn" aria-expanded={isOpen}>
+                    <button className="group-btn" aria-expanded={isOpen} onClick={() => setOpen(o => ({ ...o, [i]: !isOpen }))}>
                       <span className="group-idx mono">{String(i + 1).padStart(2, '0')}</span>
                       <span className="group-title">{g.title}</span>
                       <span className={'group-plus mono' + (isOpen ? ' open' : '')} aria-hidden="true">+</span>

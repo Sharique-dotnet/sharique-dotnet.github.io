@@ -1,8 +1,15 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { SectionLabel } from '../components'
 import { CONTACT, EMAIL, LINKEDIN } from '../data'
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false)
+  const copy = () =>
+    navigator.clipboard.writeText(EMAIL).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    })
+
   return (
     <section id="contact" data-nav className="section contact">
       <div className="contact-glow" aria-hidden="true" />
@@ -16,7 +23,9 @@ export default function Contact() {
             <span className="accent">@</span>
             <span className="email-text">{EMAIL}</span>
           </a>
-          <button className="copy-btn mono" aria-label="Copy email address">copy</button>
+          <button className={'copy-btn mono' + (copied ? ' copied' : '')} aria-label="Copy email address" onClick={copy}>
+            {copied ? 'copied ✓' : 'copy'}
+          </button>
         </div>
 
         <div data-reveal="up" className="contact-ctas">
