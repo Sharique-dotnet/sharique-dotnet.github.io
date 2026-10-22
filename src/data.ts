@@ -58,7 +58,7 @@ export const CODE: Token[][] = ([
 // ===== Snapshot =====
 export const SNAPSHOT = [
   ['experience', '6+ years', 'Enterprise .NET delivery'],
-  ['api', '120+ endpoints', 'Designed and shipped'],
+  ['api', '120+', 'REST endpoints designed and shipped'],
   ['backend', 'ASP.NET Core', 'Secure REST APIs · JWT'],
   ['performance', '~40% faster', 'Key API response times'],
   ['platform', '.NET 9 & 10', 'Modernized from .NET Core 3.1'],
