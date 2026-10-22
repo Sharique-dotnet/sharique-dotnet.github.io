@@ -26,6 +26,7 @@ export default function Contact() {
           <button className={'copy-btn mono' + (copied ? ' copied' : '')} aria-label="Copy email address" onClick={copy}>
             {copied ? 'copied ✓' : 'copy'}
           </button>
+          <span className="sr-only" aria-live="polite">{copied ? 'Email address copied' : ''}</span>
         </div>
 
         <div data-reveal="up" className="contact-ctas">
