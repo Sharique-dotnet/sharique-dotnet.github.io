@@ -2,6 +2,21 @@ import { Fragment } from 'react'
 import { Cursor, Typed } from '../components'
 import { CODE, HERO } from '../data'
 
+// Typing timeline in ms (from the design): code lines type one after another at 7ms/char,
+// then each terminal line at 24ms/char. Played by CSS animations in index.css.
+type Step = { '--n': number; '--dur': number; '--at': number }
+let t = 650
+const step = (n: number, msPerChar: number, gap: number): Step => {
+  n = Math.max(n, 1)
+  const dur = Math.max(n * msPerChar, 50)
+  const s = { '--n': n, '--dur': dur, '--at': t }
+  t += dur + gap
+  return s
+}
+const LINE_STEPS = CODE.map(line => step(line.reduce((len, tok) => len + tok.text.length, 0), 7, 30))
+// +1: "✓" renders wider than 1ch
+const TERM_STEPS = HERO.terminal.map(text => step(text.length + 1, 24, 320))
+
 export default function Hero() {
   return (
     <section id="home" data-nav className="hero">
@@ -41,7 +56,7 @@ export default function Hero() {
           </div>
           <div className="editor-code mono">
             {CODE.map((line, i) => (
-              <div key={i} className="code-line">
+              <div key={i} className="code-line" style={LINE_STEPS[i]}>
                 <span className="code-num">{i + 1}</span>
                 <span className="code-text">
                   {line.map((t, j) => <span key={j} style={{ color: t.color }}>{t.text}</span>)}
@@ -52,9 +67,9 @@ export default function Hero() {
           <div className="terminal mono">
             <div className="term-tabs"><span className="active">TERMINAL</span><span>OUTPUT</span></div>
             <div className="term-line">
-              <span className="ok">~/portfolio</span> <span className="accent">$</span> <span className="term-text">{HERO.terminal[0]}</span>
+              <span className="ok">~/portfolio</span> <span className="accent">$</span> <span className="term-text" style={TERM_STEPS[0]}>{HERO.terminal[0]}</span>
             </div>
-            <div className="term-line"><span className="term-text ok">{HERO.terminal[1]}</span></div>
+            <div className="term-line"><span className="term-text ok" style={TERM_STEPS[1]}>{HERO.terminal[1]}</span></div>
           </div>
         </div>
       </div>

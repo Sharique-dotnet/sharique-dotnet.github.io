@@ -1,3 +1,4 @@
+import { useReveal } from './hooks'
 import About from './sections/About'
 import Contact from './sections/Contact'
 import Domains from './sections/Domains'
@@ -11,6 +12,7 @@ import Snapshot from './sections/Snapshot'
 import Workflow from './sections/Workflow'
 
 function App() {
+  useReveal()
   return (
     <>
       <Header />

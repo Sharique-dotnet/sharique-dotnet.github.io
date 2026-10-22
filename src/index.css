@@ -61,6 +61,39 @@ button { font: inherit; color: inherit; }
   100% { box-shadow: 0 0 0 0 rgba(94, 224, 160, 0); }
 }
 
+@keyframes type { from { width: 0; } }
+@keyframes rowflash {
+  0%, 85% { background: rgba(61, 214, 245, .07); }
+  100% { background: transparent; }
+}
+
+/* ===== Motion =====
+   Hidden start states apply only under html.motion (set by useReveal); `.in` marks revealed elements.
+   --d = delay in ms, --n = character count, --dur / --at = hero typing duration / start in ms. */
+.motion [data-reveal] {
+  transition:
+    opacity .8s var(--ease) calc(var(--d, 0) * 1ms),
+    transform .8s var(--ease) calc(var(--d, 0) * 1ms);
+}
+.motion [data-reveal=up]:not(.in) { opacity: 0; transform: translateY(18px); }
+.motion [data-reveal=scale]:not(.in) { opacity: 0; transform: scale(.97) translateY(10px); }
+.motion [data-reveal=diamond]:not(.in) { opacity: 0; transform: rotate(45deg) scale(.4); }
+.motion [data-reveal=line] { transform-origin: left; transition: transform 1.2s var(--ease) calc(var(--d, 0) * 1ms); }
+.motion [data-reveal=line]:not(.in) { transform: scaleX(0); }
+.motion [data-reveal=vline] { transform-origin: top; transition: transform 1.6s var(--ease) calc(var(--d, 0) * 1ms); }
+.motion [data-reveal=vline]:not(.in) { transform: scaleY(0); }
+.motion .typed {
+  width: calc(var(--n) * 1ch);
+  transition: width calc(var(--n) * 26ms) steps(var(--n)) calc(var(--d, 0) * 1ms + 120ms);
+}
+.motion .typed:not(.in) { width: 0; }
+
+.motion .code-text, .motion .term-text {
+  width: calc(var(--n) * 1ch);
+  animation: type calc(var(--dur) * 1ms) steps(var(--n)) calc(var(--at) * 1ms) both;
+}
+.motion .code-line { animation: rowflash calc((var(--dur) + 140) * 1ms) linear calc(var(--at) * 1ms); }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -827,5 +860,5 @@ button { font: inherit; color: inherit; }
 .copy-btn.copied { background: rgba(94, 224, 160, .12); color: var(--ok); }
 .contact-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
 .contact-ctas .btn { padding: 0 24px; }
-.in { font-size: 13px; font-weight: 700; }
+.li-mark { font-size: 13px; font-weight: 700; }
 .contact-notes { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 32px; font-size: 12.5px; color: var(--muted-2); }

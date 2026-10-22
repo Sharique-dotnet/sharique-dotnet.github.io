@@ -30,7 +30,7 @@ export default function Contact() {
 
         <div data-reveal="up" className="contact-ctas">
           <a href={LINKEDIN} target="_blank" rel="noopener" className="btn btn-ghost">
-            <span className="mono in">in</span>LinkedIn <span className="mono">↗</span>
+            <span className="mono li-mark">in</span>LinkedIn <span className="mono">↗</span>
           </a>
           <a href={`mailto:${EMAIL}?subject=Let%27s%20connect`} className="btn btn-primary">
             Let's Connect <span className="mono">→</span>
