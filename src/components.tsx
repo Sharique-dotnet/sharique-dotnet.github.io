@@ -1,4 +1,5 @@
-// Allow CSS custom properties (e.g. style={{ '--d': '120ms' }}) in inline styles
+// Allow CSS custom properties (e.g. style={{ '--d': 120 }}) in inline styles.
+// --d is a reveal delay in ms (unitless; index.css multiplies by 1ms).
 declare module 'react' {
   interface CSSProperties {
     [key: `--${string}`]: string | number | undefined
@@ -12,7 +13,7 @@ export function Cursor() {
 // Text that types itself out when scrolled into view (see the reveal system in index.css)
 export function Typed({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
-    <span className="typed" data-reveal="type" style={{ '--n': text.length, '--d': `${delay}ms` }}>
+    <span className="typed" data-reveal="type" style={{ '--n': text.length, '--d': delay }}>
       {text}
     </span>
   )

@@ -1,18 +1,29 @@
+import About from './sections/About'
+import Contact from './sections/Contact'
+import Domains from './sections/Domains'
+import Experience from './sections/Experience'
 import Footer from './sections/Footer'
 import Header from './sections/Header'
-
-const STUBS = ['home', 'about', 'skills', 'experience', 'domains', 'workflow', 'principles', 'contact']
+import Hero from './sections/Hero'
+import Principles from './sections/Principles'
+import Skills from './sections/Skills'
+import Snapshot from './sections/Snapshot'
+import Workflow from './sections/Workflow'
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        {STUBS.map(id => (
-          <section key={id} id={id} data-nav className="section" style={{ minHeight: '100vh' }}>
-            <div className="container h2">{id}</div>
-          </section>
-        ))}
+        <Hero />
+        <Snapshot />
+        <About />
+        <Skills />
+        <Experience />
+        <Domains />
+        <Workflow />
+        <Principles />
+        <Contact />
       </main>
       <Footer />
     </>
