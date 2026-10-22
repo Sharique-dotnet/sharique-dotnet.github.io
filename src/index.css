@@ -15,7 +15,7 @@
   --text-2: #aab1ba;
   --muted: #8a929c;
   --muted-2: #7a828d;
-  --dim: #5c646e;
+  --dim: #78808b; /* lightest text gray that still meets WCAG AA (4.5:1) on --bg and --surface */
 
   --accent: #3dd6f5;
   --accent-hover: #7fe4f8;
@@ -142,7 +142,15 @@ button { font: inherit; color: inherit; }
 
 .accent { color: var(--accent); }
 .min0 { min-width: 0; }
-.sep { color: var(--line-3); }
+/* Faint "/" between items: CSS-generated so screen readers skip it (the `/ ''` alt text)
+   and contrast checkers don't flag the purely decorative glyph */
+.hero-stats > span + span::before,
+.contact-notes > span + span::before {
+  content: '/';
+  content: '/' / '';
+  margin-right: 20px;
+  color: var(--line-3);
+}
 
 .head-row {
   display: flex;
@@ -861,7 +869,7 @@ button { font: inherit; color: inherit; }
 .contact-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
 .contact-ctas .btn { padding: 0 24px; }
 .li-mark { font-size: 13px; font-weight: 700; }
-.contact-notes { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 32px; font-size: 12.5px; color: var(--muted-2); }
+.contact-notes { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; font-size: 12.5px; color: var(--muted-2); }
 
 /* ===== Accessibility & small screens ===== */
 /* Last in the file so it beats the `all: unset` on .link-btn / .group-btn */

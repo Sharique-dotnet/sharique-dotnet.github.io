@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { Cursor, Typed } from '../components'
 import { CODE, HERO } from '../data'
 
@@ -38,12 +37,7 @@ export default function Hero() {
             <a href="#contact" className="btn btn-ghost">Let's Connect</a>
           </div>
           <div data-reveal="up" style={{ '--d': 580 }} className="hero-stats mono">
-            {HERO.stats.map((s, i) => (
-              <Fragment key={s}>
-                {i > 0 && <span className="sep">/</span>}
-                <span>{s}</span>
-              </Fragment>
-            ))}
+            {HERO.stats.map(s => <span key={s}>{s}</span>)}
           </div>
         </div>
 

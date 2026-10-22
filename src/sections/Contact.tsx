@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { SectionLabel } from '../components'
 import { CONTACT, EMAIL, LINKEDIN } from '../data'
 
@@ -39,12 +39,7 @@ export default function Contact() {
         </div>
 
         <div data-reveal="up" className="contact-notes mono">
-          {CONTACT.notes.map((n, i) => (
-            <Fragment key={n}>
-              {i > 0 && <span className="sep">/</span>}
-              <span>{n}</span>
-            </Fragment>
-          ))}
+          {CONTACT.notes.map(n => <span key={n}>{n}</span>)}
         </div>
       </div>
     </section>
